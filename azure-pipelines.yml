@@ -5,12 +5,12 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-# Step to set up JDK 11
-- task: UseJava@1
-  inputs:
-    versionSpec: '11'
-    jdkArchitecture: 'x64'
-  displayName: 'Set up JDK 11'
+# Step to install JDK 11 using apt-get
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y openjdk-11-jdk
+    java -version
+  displayName: 'Install JDK 11'
 
 # Step to compile the Java program
 - script: javac Main.java

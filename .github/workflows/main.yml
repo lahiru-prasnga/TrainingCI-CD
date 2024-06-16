@@ -29,10 +29,11 @@ jobs:
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v2.1.0
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        version: '2.1.0'  # Replace with the latest stable version from releases
 
     - name: Deploy to Google App Engine
       run: |
         gcloud app deploy --quiet --version=${GITHUB_SHA:0:7} --promote
+      env:
+        GCLOUD_PROJECT: ${{ secrets.GCP_PROJECT_ID }}  
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
